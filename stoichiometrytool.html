@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stoichiometry + Lab Math AI Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="hero">
+            <div class="hero-text">
+                <p class="eyebrow">Crafted by Ali Mohammad Keshavarz</p>
+                <h1>Stoichiometry + Lab Math AI Engine</h1>
+                <p class="lead">
+                    A precision-focused workspace for balancing reactions, tracking limiting reagents,
+                    and chaining multi-step lab workflows with confident results.
+                </p>
+            </div>
+            <div class="hero-actions">
+                <button class="btn secondary" id="resetWorkspaceBtn">Reset Workspace</button>
+                <button class="btn primary" id="runAllBtn">Run Entire Workflow</button>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <section class="panel steps-panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>Reaction Steps</h2>
+                        <p>Define each reaction, optionally auto-balance, and supply your known inputs.</p>
+                    </div>
+                    <button class="btn outline" id="addStepBtn">+ Add Step</button>
+                </div>
+                <div id="stepsContainer" class="steps-stack"></div>
+                <p class="panel-hint">Outputs cascade automatically to subsequent steps when you run calculations.</p>
+            </section>
+
+            <section class="panel summary-panel">
+                <div class="panel-header condensed">
+                    <div>
+                        <h2>Chain Insights</h2>
+                        <p>Track limiting reagents, theoretical yields, and intermediate availability.</p>
+                    </div>
+                </div>
+                <div id="chainSummary" class="summary-card">
+                    <p class="placeholder">Start by describing your first reaction step.</p>
+                </div>
+                <div class="tips-card">
+                    <h3>Lab Notes</h3>
+                    <ul>
+                        <li>Use coefficients directly or let the engine suggest a balanced equation.</li>
+                        <li>Supported units: g, kg, mg, mol, L, mL (gases assume 22.414 L·mol⁻¹).</li>
+                        <li>Hover any formula to see its molar mass and parsed elemental makeup.</li>
+                        <li>Validation catches malformed formulas or missing inputs before solving.</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>Stoichiometry + Lab Math AI Engine · Ali Mohammad Keshavarz · © <span id="year"></span></p>
+        </footer>
+    </div>
+
+    <script src="scripts/main.js" defer></script>
+</body>
+</html>
