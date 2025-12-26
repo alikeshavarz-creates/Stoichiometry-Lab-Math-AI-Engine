@@ -1,59 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <style>
-  /* The "CEO" Polish */
-  body {
-    padding: 2rem;
-    background-color: #f4f6f9; /* Clinical Light Grey */
-  }
-  main {
-    background-color: white;
-    padding: 3rem;
-    border-radius: 12px; /* Smooth corners */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Soft depth */
-    max-width: 800px;
-    margin: auto;
-    border-top: 6px solid #2a9d8f; /* "Diagnostics Teal" Accent */
-  }
-  h1 {
-    font-size: 2.5rem;
-    color: #264653;
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-  button {
-    background-color: #2a9d8f !important;
-    border: none !important;
-    font-weight: 700;
-  }
-  button:hover {
-    background-color: #21867a !important;
-  }
-</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stoichiometry + Lab Math AI Engine</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2a9d8f;
+            --primary-hover: #21867a;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #264653;
+            --border-radius: 12px;
+            --font-display: 'Space Grotesk', sans-serif;
+        }
+
+        /* Base Layout Override */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* The App Shell - Limits width on big screens */
+        .app-shell {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+
+        /* 1. HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            border-top: 6px solid var(--primary);
+        }
+
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .lead {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* 2. BUTTON STYLING */
+        button.btn {
+            border-radius: 50px; /* Pill shape */
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            width: auto;
+            display: inline-block;
+        }
+
+        button.primary {
+            background-color: var(--primary);
+            border: none;
+            color: white;
+        }
+        button.primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(42, 157, 143, 0.4);
+        }
+
+        button.secondary {
+            background-color: transparent;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+        button.secondary:hover {
+            background-color: #eee;
+            color: #333;
+        }
+        
+        button.outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* 3. MAIN DASHBOARD GRID */
+        .app-main {
+            display: grid;
+            grid-template-columns: 1fr; /* Default mobile stack */
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* Desktop view: 2 columns */
+        @media (min-width: 992px) {
+            .app-main {
+                grid-template-columns: 2fr 1fr; /* Left side wider than right side */
+            }
+        }
+
+        /* 4. PANELS (CARDS) */
+        .panel {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .panel-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--text-main);
+        }
+        
+        .panel-header p {
+            font-size: 0.9rem;
+            color: #888;
+            margin: 0.2rem 0 0 0;
+        }
+
+        /* 5. SIDEBAR & TIPS */
+        .summary-card {
+            background: #f8fcfb; /* Very light teal tint */
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px dashed #ccc;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .placeholder {
+            color: #999;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .tips-card {
+            margin-top: 2rem;
+            background: #264653; /* Dark Navy */
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .tips-card h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tips-card ul {
+            padding-left: 1rem;
+            font-size: 0.85rem;
+            color: #e0e0e0;
+        }
+        
+        .tips-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* 6. FOOTER */
+        .app-footer {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+            font-size: 0.8rem;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
+
     <div class="app-shell">
         <header class="hero">
             <div class="hero-text">
                 <p class="eyebrow">Crafted by Ali Mohammad Keshavarz</p>
-                <h1>Stoichiometry + Lab Math AI Engine</h1>
+                <h1>Stoichiometry + Lab Math AI</h1>
                 <p class="lead">
-                    A precision-focused workspace for balancing reactions, tracking limiting reagents,
-                    and chaining multi-step lab workflows with confident results.
+                    A precision workspace for balancing reactions, tracking limiting reagents,
+                    and chaining multi-step lab workflows.
                 </p>
             </div>
             <div class="hero-actions">
-                <button class="btn secondary" id="resetWorkspaceBtn">Reset Workspace</button>
-                <button class="btn primary" id="runAllBtn">Run Entire Workflow</button>
+                <button class="btn secondary" id="resetWorkspaceBtn">Reset</button>
+                <button class="btn primary" id="runAllBtn">Run Workflow</button>
             </div>
         </header>
 
@@ -61,44 +244,50 @@
             <section class="panel steps-panel">
                 <div class="panel-header">
                     <div>
-                        <h2>Reaction Steps</h2>
-                        <p>Define each reaction, optionally auto-balance, and supply your known inputs.</p>
+                        <h2>Reaction Protocol</h2>
+                        <p>Define reactions and supply known inputs.</p>
                     </div>
                     <button class="btn outline" id="addStepBtn">+ Add Step</button>
                 </div>
-                <div id="stepsContainer" class="steps-stack"></div>
-                <p class="panel-hint">Outputs cascade automatically to subsequent steps when you run calculations.</p>
+                
+                <div id="stepsContainer" class="steps-stack">
+                    <p class="placeholder" style="width:100%">No steps added yet. Click "+ Add Step" to begin.</p>
+                </div>
             </section>
 
             <section class="panel summary-panel">
                 <div class="panel-header condensed">
                     <div>
                         <h2>Chain Insights</h2>
-                        <p>Track limiting reagents, theoretical yields, and intermediate availability.</p>
+                        <p>Real-time Yield & Limiting Reagents</p>
                     </div>
                 </div>
                 <div id="chainSummary" class="summary-card">
-                    <p class="placeholder">Start by describing your first reaction step.</p>
+                    <p class="placeholder">Waiting for inputs...</p>
                 </div>
                 <div class="tips-card">
                     <h3>Lab Notes</h3>
                     <ul>
-                        <li>Use coefficients directly or let the engine suggest a balanced equation.</li>
-                        <li>Supported units: g, kg, mg, mol, L, mL (gases assume 22.414 L·mol⁻¹).</li>
-                        <li>Hover any formula to see its molar mass and parsed elemental makeup.</li>
-                        <li>Validation catches malformed formulas or missing inputs before solving.</li>
+                        <li>Use coefficients directly or auto-balance.</li>
+                        <li>Supported units: g, kg, mg, mol, L.</li>
+                        <li>Hover any formula for Molar Mass.</li>
                     </ul>
                 </div>
             </section>
         </main>
 
         <footer class="app-footer">
-            <p>Stoichiometry + Lab Math AI Engine · Ali Mohammad Keshavarz · © <span id="year"></span></p>
+            <p>Ali Mohammad Keshavarz · University of Turin · © <span id="year">2025</span></p>
         </footer>
     </div>
 
     <script src="scripts/main.js" defer></script>
+    <script>
+        // Simple script to set the year automatically
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
+
 
 
